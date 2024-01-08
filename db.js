@@ -69,11 +69,13 @@ const createNewUser = function (userId, seniority, hardskill, role, email, name)
     if (userId == null || seniority == null || hardskill == null || role == null || email == null || name == null) {
         return "Missing parameters";
     }
-    pool.query(`INSERT INTO users (userId, seniority, hardskill, role, email, name) VALUES ("${userId}", "${seniority}", "${hardskill}", "${role}", "${email}", "${name}")`, function (error, results, fields) {
-        if (error) throw error;
-        else {
-            return "User inserted";
-        }
+    return new Promise((resolve, reject)=>{
+        pool.query(`INSERT INTO users (userId, seniority, hardskill, role, email, name) VALUES ("${userId}", "${seniority}", "${hardskill}", "${role}", "${email}", "${name}")`, function (error, elements) {
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
     });
 }
 
