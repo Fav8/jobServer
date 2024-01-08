@@ -13,7 +13,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 //turn off to test locally
-//app.use(DecodeTokenMiddleware);
+
+app.use(DecodeTokenMiddleware);
 
 
 
