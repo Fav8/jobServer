@@ -95,6 +95,34 @@ const getUserByEmail = function (email) {
     });
 }
 
+const applyJob = function (userId, jobId) {
+    if (userId == null || jobId == null) {
+        return "Missing parameters";
+    }
+    return new Promise((resolve, reject)=>{
+        pool.query(`INSERT INTO savedJobs (userId, jobId) VALUES ("${userId}", "${jobId}")`, function (error, elements) {
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+}
 
+const getJobById = function (jobId) {
 
-export {checkIfQueryExists, getUserDetails, getJobList, createNewUser, getUserByEmail};
+    if (jobId == null) {
+        return "Missing parameters";
+    }
+    return new Promise((resolve, reject)=>{
+        pool.query(`SELECT * from savedJobs where jobId = "${jobId}"`,  (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+
+}
+
+export {checkIfQueryExists, getUserDetails, getJobList, createNewUser, getUserByEmail ,applyJob, getJobById};

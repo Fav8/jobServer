@@ -44,6 +44,17 @@ app.post('/createUser', async (req, res) => {
 }
 )
 
+app.post('/applyToJob', async (req, res) => {
+    try {
+        let result = await applyToJob(req.body.userId, req.body.jobId)
+        res.send(result);
+    } catch (error) {
+        console.log(error)
+        res.send(error);
+    } 
+}
+)
+
 app.listen(port, () => {
     console.log(`listening at http://localhost:${port}`);
 }
