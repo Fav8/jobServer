@@ -9,12 +9,12 @@ import { DecodeTokenMiddleware } from './middleware.js';
 const port = 8080;
 
 const app = express();
-//app.use(DecodeTokenMiddleware);
+app.use(DecodeTokenMiddleware);
 app.use(cors());
 
 
 
-app.get('/', (req, res) => {
+app.get('/test', (req, res) => {
     res.send('Hello World!');
 });
 
