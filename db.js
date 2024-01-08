@@ -100,7 +100,7 @@ const applyJob = function (userId, jobId) {
         return "Missing parameters";
     }
     return new Promise((resolve, reject)=>{
-        pool.query(`INSERT INTO savedJobs (userId, jobId) VALUES ("${userId}", "${jobId}")`, function (error, elements) {
+        pool.query(`INSERT INTO userAppliedJobs (userId, jobId) VALUES ("${userId}", "${jobId}")`, function (error, elements) {
             if(error){
                 return reject(error);
             }
