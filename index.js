@@ -38,7 +38,6 @@ app.get('/userJobs/:userid', async (req, res) => {
 )
 
 app.post('/createUser', async (req, res) => {
-    console.log(req)
     
     try {
         let result = await createUser(req.body.email, req.body.password, req.body.seniority, req.body.hardskill, req.body.role, req.body.name)
