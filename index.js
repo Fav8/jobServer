@@ -16,12 +16,6 @@ app.use(cors());
 
 app.use(DecodeTokenMiddleware);
 
-
-
-app.get('/test', (req, res) => {
-    res.send('Hello World!');
-});
-
 app.get('/checkIfQueryExists', (req, res) => {
     res.send(checkIfQueryExists(req.query.seniority, req.query.hardskill, req.query.role));
 }

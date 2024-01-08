@@ -1,8 +1,8 @@
 import {getJobList, getUserDetails, createNewUser, getUserByEmail} from './db.js';
 import {admin} from './firebase-config.js';
 
-export async function getUserJobs(userId) {
-    const users = await getUserDetails(userId);
+export async function getUserJobs(email) {
+    const users = await getUserByEmail(email);
     if(users.length == 0){
         return "No user found";
     } 
