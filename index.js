@@ -3,7 +3,7 @@ import express from 'express';
 import { initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { checkIfQueryExists } from './db.js';
-import { getUserJobs } from './controllers.js';
+import { getUserJobs,createUser } from './controllers.js';
 import cors from 'cors';
 import { DecodeTokenMiddleware } from './middleware.js';
 const port = 8080;
@@ -32,6 +32,17 @@ app.get('/userJobs/:userid', async (req, res) => {
             res.send(error);
         }
     }
+)
+
+app.post('/createUser', async (req, res) => {
+    try {
+        let result = await createUser(req.body.userid, req.body.seniority, req.body.hardskill, req.body.role)
+        res.send(result);
+    } catch (error) {
+        console.log(error)
+        res.send(error);
+    }
+}
 )
 
 app.listen(port, () => {

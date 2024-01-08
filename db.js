@@ -65,6 +65,18 @@ const checkIfQueryExists = function (seniority, hardskill, role) {
     });
   }
 
+const createNewUser = function (userId, seniority, hardskill, role) {
+    if (userId == null || seniority == null || hardskill == null || role == null) {
+        return "Missing parameters";
+    }
+    connection.query(`INSERT INTO users (userId, seniority, hardskill, role) VALUES ("${userId}", "${seniority}", "${hardskill}", "${role}")`, function (error, results, fields) {
+        if (error) throw error;
+        else {
+            return "User inserted";
+        }
+    });
+}
 
 
-export {checkIfQueryExists, getUserDetails, getJobList};
+
+export {checkIfQueryExists, getUserDetails, getJobList, createNewUser};
