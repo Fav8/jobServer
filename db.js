@@ -80,13 +80,15 @@ const createNewUser = function (userId, seniority, hardskill, role, email, name)
 }
 
 const getUserByEmail = function (email) {
-    if (email == null) {
-        return "Missing parameters";
-    }
+    
     return new Promise((resolve, reject)=>{
+        
         pool.query(`SELECT * from users where email = "${email}"`,  (error, elements)=>{
             if(error){
                 return reject(error);
+            }
+            if (email == null) {
+                return reject("Missing parameters");
             }
             return resolve(elements);
         });
