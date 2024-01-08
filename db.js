@@ -1,6 +1,6 @@
 // export the connection to the mysql database
 
-import mysql from 'mysql';
+import mysql from 'mysql2';
 import 'dotenv/config'
 
 const pool = mysql.createPool({
