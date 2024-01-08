@@ -65,11 +65,11 @@ const checkIfQueryExists = function (seniority, hardskill, role) {
     });
   }
 
-const createNewUser = function (userId, seniority, hardskill, role) {
-    if (userId == null || seniority == null || hardskill == null || role == null) {
+const createNewUser = function (userId, seniority, hardskill, role, email, name) {
+    if (userId == null || seniority == null || hardskill == null || role == null || email == null || name == null) {
         return "Missing parameters";
     }
-    connection.query(`INSERT INTO users (userId, seniority, hardskill, role) VALUES ("${userId}", "${seniority}", "${hardskill}", "${role}")`, function (error, results, fields) {
+    pool.query(`INSERT INTO users (userId, seniority, hardskill, role, email, name) VALUES ("${userId}", "${seniority}", "${hardskill}", "${role}", "${email}", "${name}")`, function (error, results, fields) {
         if (error) throw error;
         else {
             return "User inserted";
@@ -77,6 +77,20 @@ const createNewUser = function (userId, seniority, hardskill, role) {
     });
 }
 
+const getUserByEmail = function (email) {
+    if (email == null) {
+        return "Missing parameters";
+    }
+    return new Promise((resolve, reject)=>{
+        pool.query(`SELECT * from users where email = "${email}"`,  (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+}
 
 
-export {checkIfQueryExists, getUserDetails, getJobList, createNewUser};
+
+export {checkIfQueryExists, getUserDetails, getJobList, createNewUser, getUserByEmail};

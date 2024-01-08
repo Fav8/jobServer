@@ -1,5 +1,5 @@
-import e from 'express';
-import {getJobList, getUserDetails, createNewUser} from './db.js';
+import {getJobList, getUserDetails, createNewUser, getUserByEmail} from './db.js';
+import {admin} from './firebase-config.js';
 
 export async function getUserJobs(userId) {
     const users = await getUserDetails(userId);
@@ -11,12 +11,20 @@ export async function getUserJobs(userId) {
     return jobList;
 }
 
-export async function createUser(userId, seniority, hardskill, role) {
-    const users = await getUserDetails(userId);
-    if(users.length != 0){
-        return "User already exists";
-    } 
-    const result = await createNewUser(userId, seniority, hardskill, role);
-    return result;
-    
+export async function createUser(email, password, seniority, hardskill, role, name) {
+    try {
+        const users = await getUserByEmail(email);
+        if(users.length != 0){
+            return "User already exists";
+        }
+        const {uid} = await admin.auth().createUser({
+            email,
+            password,
+        });
+        const result = await createNewUser(uid, seniority, hardskill, role, email, name);
+        return result;
+    } catch (error) {
+        console.log(error)
+       return error 
+    }
 }

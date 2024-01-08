@@ -6,11 +6,14 @@ import { checkIfQueryExists } from './db.js';
 import { getUserJobs,createUser } from './controllers.js';
 import cors from 'cors';
 import { DecodeTokenMiddleware } from './middleware.js';
+import bodyParser from 'body-parser';
 const port = 8080;
 
 const app = express();
+app.use(bodyParser.json());
 app.use(cors());
-app.use(DecodeTokenMiddleware);
+//turn off to test locally
+//app.use(DecodeTokenMiddleware);
 
 
 
@@ -36,12 +39,12 @@ app.get('/userJobs/:userid', async (req, res) => {
 
 app.post('/createUser', async (req, res) => {
     try {
-        let result = await createUser(req.body.userid, req.body.seniority, req.body.hardskill, req.body.role)
+        let result = await createUser(req.body.email, req.body.password, req.body.seniority, req.body.hardskill, req.body.role, req.body.name)
         res.send(result);
     } catch (error) {
         console.log(error)
         res.send(error);
-    }
+    } 
 }
 )
 
