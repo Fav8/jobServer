@@ -133,7 +133,7 @@ const getUserAppliedJobs = function (userId) {
         return "Missing parameters";
     }
     return new Promise((resolve, reject)=>{
-        pool.query(`SELECT * from userAppliedJobs where userId = ${userId}`,  (error, elements)=>{
+        pool.query(`SELECT * from userAppliedJobs where userId = "${userId}"`,  (error, elements)=>{
             if(error){
                 return reject(error);
             }
