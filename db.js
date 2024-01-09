@@ -26,13 +26,16 @@ const getUserDetails = (userId) =>{
     });
 };
 
-const getJobList = async function (seniority, hardskill, role) {
+const getJobList = async function (seniority, hardskill, role, userId) {
 
     if (seniority == null || hardskill == null || role == null) {
         return "Missing parameters";
     }
     return new Promise((resolve, reject)=>{
-            pool.query(`SELECT * from savedJobs where seniority = "${seniority}" AND hardskill = "${hardskill}" AND role = "${role}"`,  (error, elements)=>{
+            pool.query(`select sj.jobId, sj.hardskill, sj.url, sj.title, sj.seniority, sj.role, IF(userAppliedJobs.userId = ${userId}, True, False) as userDidApply
+from savedJobs sj
+left join userAppliedJobs on userAppliedJobs.jobId = sj.jobId
+where seniority = "${seniority}" AND hardskill = "${hardskill}" AND role = "${role}"`,  (error, elements)=>{
                 if(error){
                     return reject(error);
                 }

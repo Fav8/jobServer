@@ -7,7 +7,7 @@ export async function getUserJobs(userId) {
         return "No user found";
     } 
     let userDetails = users[0];
-    const jobList = await getJobList(userDetails.seniority, userDetails.hardskill, userDetails.role);
+    const jobList = await getJobList(userDetails.seniority, userDetails.hardskill, userDetails.role, userId);
     return jobList;
 }
 
