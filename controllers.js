@@ -58,3 +58,13 @@ export async function userAppliedJobs(userId) {
        return error 
     }
 }
+
+export async function getUsers() {
+    try {
+        const users = await getAllUsers();
+        return users;
+    } catch (error) {
+        console.log(error)
+       return error 
+    }
+}

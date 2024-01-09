@@ -2,7 +2,7 @@
 import express from 'express';
 import { initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
-import { getUserJobs,createUser, applyToJob, userAppliedJobs } from './controllers.js';
+import { getUserJobs,createUser, applyToJob, userAppliedJobs, getUsers } from './controllers.js';
 import cors from 'cors';
 import { DecodeTokenMiddleware } from './middleware.js';
 import bodyParser from 'body-parser';
@@ -59,6 +59,20 @@ app.get('/userAppliedJobs/:userid', async (req, res) => {
         res.send(error);
     }
 })
+
+app.get('/getUsers' , async (req, res) => {
+    //to implement
+    try {
+
+        const users = await getUsers();
+        res.send(users);
+    } catch (error) {
+
+        console.log(error);
+        res.send(error);
+    }
+
+});
 
 app.listen(port, () => {
     console.log(`listening at http://localhost:${port}`);

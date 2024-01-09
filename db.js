@@ -146,4 +146,16 @@ left join userAppliedJobs on userAppliedJobs.jobId = sj.jobId
     });
 }
 
-export {createNewQuery, getUserDetails, getJobList, createNewUser, getUserByEmail ,applyJob, getJobById, getUserAppliedJobs};
+const getAllUsers = function () {
+
+    return new Promise((resolve, reject)=>{
+        pool.query(`SELECT * from users`,  (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+}
+
+export {createNewQuery, getUserDetails, getJobList, createNewUser, getUserByEmail ,applyJob, getJobById, getUserAppliedJobs, getAllUsers};
