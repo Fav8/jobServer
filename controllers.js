@@ -1,4 +1,4 @@
-import {getJobList, getUserDetails, createNewUser, getUserByEmail, applyJob, getJobById, getUserAppliedJobs, createNewQuery} from './db.js';
+import {getJobList, getUserDetails, createNewUser, getUserByEmail, applyJob, getJobById, getUserAppliedJobs, createNewQuery, getAllUsers} from './db.js';
 import {admin} from './firebase-config.js';
 
 export async function getUserJobs(userId) {
