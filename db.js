@@ -32,7 +32,7 @@ const getJobList = async function (seniority, hardskill, role, userId) {
         return "Missing parameters";
     }
     return new Promise((resolve, reject)=>{
-            pool.query(`select sj.jobId, sj.hardskill, sj.url, sj.title, sj.seniority, sj.role, IF(userAppliedJobs.userId = ${userId}, True, False) as userDidApply
+            pool.query(`select sj.jobId, sj.hardskill, sj.url, sj.title, sj.seniority, sj.role, IF(userAppliedJobs.userId = "${userId}", True, False) as userDidApply
 from savedJobs sj
 left join userAppliedJobs on userAppliedJobs.jobId = sj.jobId
 where seniority = "${seniority}" AND hardskill = "${hardskill}" AND role = "${role}"`,  (error, elements)=>{
