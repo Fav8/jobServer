@@ -3,7 +3,7 @@ import express from 'express';
 import { initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
 import { checkIfQueryExists } from './db.js';
-import { getUserJobs,createUser } from './controllers.js';
+import { getUserJobs,createUser, applyToJob, userAppliedJobs } from './controllers.js';
 import cors from 'cors';
 import { DecodeTokenMiddleware } from './middleware.js';
 import bodyParser from 'body-parser';
@@ -54,6 +54,17 @@ app.post('/applyToJob', async (req, res) => {
     } 
 }
 )
+
+app.get('/userAppliedJobs/:userid', async (req, res) => {
+    //TODO: implement
+    try {
+        let result = await userAppliedJobs(req.body.userId)
+        res.send(result);
+    } catch (error) {
+        console.log(error)
+        res.send(error);
+    }
+})
 
 app.listen(port, () => {
     console.log(`listening at http://localhost:${port}`);

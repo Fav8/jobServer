@@ -64,7 +64,7 @@ const checkIfQueryExists = function (seniority, hardskill, role) {
         }
     });
   }
-
+//TODO: make checkIfQueryExists ren when creating a new user
 const createNewUser = function (userId, seniority, hardskill, role, email, name) {
     if (userId == null || seniority == null || hardskill == null || role == null || email == null || name == null) {
         return "Missing parameters";
@@ -115,7 +115,7 @@ const getJobById = function (jobId) {
         return "Missing parameters";
     }
     return new Promise((resolve, reject)=>{
-        pool.query(`SELECT * from savedJobs where jobId = "${jobId}"`,  (error, elements)=>{
+        pool.query(`SELECT * from savedJobs where jobId = ${jobId}`,  (error, elements)=>{
             if(error){
                 return reject(error);
             }
@@ -125,4 +125,18 @@ const getJobById = function (jobId) {
 
 }
 
-export {checkIfQueryExists, getUserDetails, getJobList, createNewUser, getUserByEmail ,applyJob, getJobById};
+const getUserAppliedJobs = function (userId) {
+    if (userId == null) {
+        return "Missing parameters";
+    }
+    return new Promise((resolve, reject)=>{
+        pool.query(`SELECT * from userAppliedJobs where userId = ${userId}`,  (error, elements)=>{
+            if(error){
+                return reject(error);
+            }
+            return resolve(elements);
+        });
+    });
+}
+
+export {checkIfQueryExists, getUserDetails, getJobList, createNewUser, getUserByEmail ,applyJob, getJobById, getUserAppliedJobs};
