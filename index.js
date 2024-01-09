@@ -2,7 +2,6 @@
 import express from 'express';
 import { initializeApp } from 'firebase-admin/app';
 import { getAuth } from 'firebase-admin/auth';
-import { checkIfQueryExists } from './db.js';
 import { getUserJobs,createUser, applyToJob, userAppliedJobs } from './controllers.js';
 import cors from 'cors';
 import { DecodeTokenMiddleware } from './middleware.js';
@@ -16,10 +15,6 @@ app.use(cors());
 
 app.use(DecodeTokenMiddleware);
 
-app.get('/checkIfQueryExists', (req, res) => {
-    res.send(checkIfQueryExists(req.query.seniority, req.query.hardskill, req.query.role));
-}
-)
 
 app.get('/userJobs/:userid', async (req, res) => {
         try {

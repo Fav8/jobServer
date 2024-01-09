@@ -1,4 +1,4 @@
-import {getJobList, getUserDetails, createNewUser, getUserByEmail, applyJob, getJobById, getUserAppliedJobs} from './db.js';
+import {getJobList, getUserDetails, createNewUser, getUserByEmail, applyJob, getJobById, getUserAppliedJobs, createNewQuery} from './db.js';
 import {admin} from './firebase-config.js';
 
 export async function getUserJobs(userId) {
@@ -22,6 +22,7 @@ export async function createUser(email, password, seniority, hardskill, role, na
             password,
         });
         const result = await createNewUser(uid, seniority, hardskill, role, email, name);
+        const newQuery = await createNewQuery(seniority, hardskill, role);
         return result;
     } catch (error) {
         console.log(error)

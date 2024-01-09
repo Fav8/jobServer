@@ -42,18 +42,18 @@ const getJobList = async function (seniority, hardskill, role) {
     }
 
 //methods
-const checkIfQueryExists = function (seniority, hardskill, role) {
+const createNewQuery = function (seniority, hardskill, role) {
 
     if (seniority == null || hardskill == null || role == null) {
         return "Missing parameters";
     }
-    connection.query(`SELECT * from jobQueries where seniority = "${seniority}" AND hardskill = "${hardskill}" AND role = "${role}"`, function (error, results, fields) {
+    pool.query(`SELECT * from jobQueries where seniority = "${seniority}" AND hardskill = "${hardskill}" AND role = "${role}"`, function (error, results, fields) {
         if (error) {
             console.log("error: " + error)
             throw error;
         }
         if (results.length == 0) {
-            connection.query(`INSERT INTO jobQueries (seniority, hardskill, role) VALUES ("${seniority}", "${hardskill}", "${role}")`, function (error, results, fields) {
+            pool.query(`INSERT INTO jobQueries (seniority, hardskill, role) VALUES ("${seniority}", "${hardskill}", "${role}")`, function (error, results, fields) {
                 if (error) throw error;
                 else {
                     return "Query inserted";
@@ -64,7 +64,7 @@ const checkIfQueryExists = function (seniority, hardskill, role) {
         }
     });
   }
-//TODO: make checkIfQueryExists ren when creating a new user
+  
 const createNewUser = function (userId, seniority, hardskill, role, email, name) {
     if (userId == null || seniority == null || hardskill == null || role == null || email == null || name == null) {
         return "Missing parameters";
@@ -139,4 +139,4 @@ const getUserAppliedJobs = function (userId) {
     });
 }
 
-export {checkIfQueryExists, getUserDetails, getJobList, createNewUser, getUserByEmail ,applyJob, getJobById, getUserAppliedJobs};
+export {createNewQuery, getUserDetails, getJobList, createNewUser, getUserByEmail ,applyJob, getJobById, getUserAppliedJobs};
