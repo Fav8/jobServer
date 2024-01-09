@@ -53,7 +53,7 @@ app.post('/applyToJob', async (req, res) => {
 app.get('/userAppliedJobs/:userid', async (req, res) => {
     //TODO: implement
     try {
-        let result = await userAppliedJobs(req.body.userId)
+        let result = await userAppliedJobs(req.params.userId)
         res.send(result);
     } catch (error) {
         console.log(error)
